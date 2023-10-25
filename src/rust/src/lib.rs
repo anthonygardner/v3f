@@ -1,5 +1,6 @@
 use pyo3::prelude::*;
 
+#[derive(Clone)]
 #[pyclass]
 struct Vector3f {
     #[pyo3(get, set)]
@@ -24,6 +25,24 @@ impl Vector3f {
     #[pyo3(name = "__repr__")]
     fn repr(&self) -> String {
         format!("[{}, {}, {}]", self.x, self.y, self.z).to_string()
+    }
+
+    #[pyo3(name = "__add__")]
+    fn add(&self, v: Vector3f) -> Self {
+        return Vector3f {
+            x: self.x + v.x,
+            y: self.y + v.y,
+            z: self.z + v.z,
+        }
+    }
+
+    #[pyo3(name = "__sub__")]
+    fn sub(&self, v: Vector3f) -> Self {
+        return Vector3f {
+            x: self.x - v.x,
+            y: self.y - v.y,
+            z: self.z - v.z,
+        }
     }
 }
 

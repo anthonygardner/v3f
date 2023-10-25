@@ -32,11 +32,18 @@ class Vector3f(ctypes.Structure):
             c_add.argtypes = (Vector3f, Vector3f)
             c_add.restype = Vector3f
 
-            v = c_add(self, u)
-
-            return v
+            return c_add(self, u)
 
         return add_v3f(self, u)
+
+    def __sub__(self, u: Vector3f) -> Vector3f:
+        c_sub = libc.__getattr__('sub_v3f')
+
+        c_sub.argtypes = (Vector3f, Vector3f)
+        c_sub.restype = Vector3f
+
+        return c_sub(self, u)
+
 
 def add_v3f(u: Vector3f, v: Vector3f) -> Vector3f:
     c_add = libc.__getattr__('add_v3f')
